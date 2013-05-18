@@ -11,6 +11,17 @@ include_recipe "php"
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
 
+# ---- Recommmendation by MeadiaWiki Installer page
+package "php-apc"
+template "#{node['php']['ext_conf_dir']}/apc.ini" do
+  source "apc.ini.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(:name => "apc", :extensions => ["apc.so"], :directives => {"shm_size" => "256"})
+  action action
+end
+
 userName=node[:apache][:user]
 groupName=node[:apache][:group]
 
@@ -36,7 +47,7 @@ end
 execute "untar-mediawiki" do
   cwd node['mediawiki']['directory']
   command "tar --strip-components 1 -xzf #{local_file}"
-  creates node[:mediawiki][:directory]+"/LocalSettings.php"
+  creates node[:mediawiki][:directory]+"/api.php"
   user userName
   group groupName
 end
@@ -71,7 +82,7 @@ end
 
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
-  server_aliases Array(node['ipaddress'], node['fqdn'])
+  server_aliases %W(node['ipaddress'] node['fqdn'])
   docroot node['mediawiki']['directory']
 end
 
