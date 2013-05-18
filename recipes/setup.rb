@@ -71,7 +71,7 @@ end
 
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
-  server_aliases Array(node['ipaddress'])
+  server_aliases Array(node['ipaddress'], node['fqdn'])
   docroot node['mediawiki']['directory']
 end
 
