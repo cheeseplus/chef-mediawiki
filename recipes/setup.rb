@@ -3,13 +3,23 @@
 # Recipe:: setup
 #
 
-::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+if node.attribute?('cloud')
+  include_recipe "mysql::server_ec2"
+else
+  include_recipe "mysql::server"
+end
+
+include_recipe "database::mysql"
+
+service "mysql" do
+  action :enable
+end
 
 include_recipe "apache2"
-include_recipe "mysql::server"
 include_recipe "php"
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
+
 
 # ---- Recommmendation by MeadiaWiki Installer page
 package "php-apc"
@@ -82,7 +92,7 @@ end
 
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
-  server_aliases %W(node['ipaddress'] node['fqdn'])
+  server_aliases [node['ipaddress'], node['fqdn']]
   docroot node['mediawiki']['directory']
 end
 
