@@ -3,13 +3,12 @@
 # Recipe:: setup
 #
 
-if node.attribute?('cloud')
-  include_recipe "mysql::server_ec2"
-else
-  include_recipe "mysql::server"
-end
-
+include_recipe "mysql::server"
 include_recipe "database::mysql"
+
+if node.attribute?('ec2')
+  include_recipe "mysql::server_ec2"
+end
 
 service "mysql" do
   action :enable
