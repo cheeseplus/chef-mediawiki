@@ -19,6 +19,15 @@ include_recipe "php"
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
 
+execute "install pear mail package" do
+  command "pear install mail"
+  action :run
+end
+
+execute "install pear net_smtp package" do
+  command "pear install net_smtp"
+  action :run
+end
 
 # ---- Recommmendation by MeadiaWiki Installer page
 package "php-apc"
@@ -27,7 +36,7 @@ template "#{node['php']['ext_conf_dir']}/apc.ini" do
   owner "root"
   group "root"
   mode "0644"
-  variables(:name => "apc", :extensions => ["apc.so"], :directives => {"shm_size" => "256"})
+  variables(:name => "apc", :extensions => ["apc.so"], :directives => {"shm_size" => "256M"})
   action action
 end
 

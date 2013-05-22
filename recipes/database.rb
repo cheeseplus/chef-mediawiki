@@ -34,7 +34,25 @@ end
 mysql_database_user node['mediawiki']['wgDBuser'] do
   connection mysql_connection_info
   database_name node['mediawiki']['wgDBname']
-  privileges [:all]
   password node['mediawiki']['wgDBpassword']
   action [:create, :grant]
 end
+
+# execute "mysql-install-wiki-privileges" do
+#   command "/usr/bin/mysql -u root -p\"#{node['mysql']['server_root_password']}\" < #{node['mysql']['conf_dir']}/wiki-grants.sql"
+#   action :nothing
+# end
+
+# template "#{node['mysql']['conf_dir']}/wiki-grants.sql" do
+#   source "grants.sql.erb"
+#   owner "root"
+#   group "root"
+#   mode "0600"
+#   variables(
+#     :user => node['mediawiki']['wgDBuser'],
+#     :password => node['mediawiki']['wgDBpassword'],
+#     :database => node['mediawiki']['wgDBname']
+#   )
+#   notifies :run, "execute[mysql-install-wiki-privileges]", :immediately
+# end
+
