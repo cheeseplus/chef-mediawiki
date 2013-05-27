@@ -8,6 +8,6 @@ version          "0.1.0"
 
 depends "mysql"
 depends "apache2"
-depends "php"
+depends "php", "1.2.0"
 depends "database"
 depends "imagemagick"

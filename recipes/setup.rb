@@ -22,11 +22,13 @@ include_recipe "apache2::mod_php5"
 execute "install pear mail package" do
   command "pear install mail"
   action :run
+  not_if "pear list | awk '/Mail/ { print $1 }'"
 end
 
 execute "install pear net_smtp package" do
   command "pear install net_smtp"
   action :run
+  not_if "pear list | awk '/Net_SMTP/ { print $1 }'"
 end
 
 # ---- Recommmendation by MeadiaWiki Installer page
