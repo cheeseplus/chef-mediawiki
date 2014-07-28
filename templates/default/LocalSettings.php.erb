@@ -18,45 +18,45 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename      = "<%= node[:mediawiki][:wgSitename] %>";
-$wgMetaNamespace = "<%= node[:mediawiki][:wgMetaNamespace] %>";
+$wgSitename      = "<%= node['mediawiki']['wgSitename'] %>";
+$wgMetaNamespace = "<%= node['mediawiki']['wgMetaNamespace'] %>";
 
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath       = "<%= node[:mediawiki][:wgScriptPath] %>";
-$wgScriptExtension  = "<%= node[:mediawiki][:wgScriptExtension] %>";
+$wgScriptPath       = "<%= node['mediawiki']['wgScriptPath'] %>";
+$wgScriptExtension  = "<%= node['mediawiki']['wgScriptExtension'] %>";
 
 ## The protocol and server name to use in fully-qualified URLs
 $wgServer = "http://127.0.0.1";
 
 ## The relative URL path to the skins directory
-$wgStylePath        = "<%= node[:mediawiki][:wgStylePath] %>";
+$wgStylePath        = "<%= node['mediawiki']['wgStylePath'] %>";
 
 ## The relative URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo             = "<%= node[:mediawiki][:wgLogo] %>";
+$wgLogo             = "<%= node['mediawiki']['wgLogo'] %>";
 
 ## UPO means: this is also a user preference option
 
-$wgEnableEmail      = <%= node[:mediawiki][:wgEnableEmail] %>;
-$wgEnableUserEmail  = <%= node[:mediawiki][:wgEnableUserEmail] %>; # UPO
+$wgEnableEmail      = <%= node['mediawiki']['wgEnableEmail'] %>;
+$wgEnableUserEmail  = <%= node['mediawiki']['wgEnableUserEmail'] %>; # UPO
 
-$wgEmergencyContact = "<%= node[:mediawiki][:wgEmergencyContact] %>";
-$wgPasswordSender = "<%= node[:mediawiki][:wgPasswordSender] %>";
+$wgEmergencyContact = "<%= node['mediawiki']['wgEmergencyContact'] %>";
+$wgPasswordSender = "<%= node['mediawiki']['wgPasswordSender'] %>";
 
-$wgEnotifUserTalk      = <%= node[:mediawiki][:wgEnotifUserTalk] %>; # UPO
-$wgEnotifWatchlist     = <%= node[:mediawiki][:wgEnotifWatchlist] %>; # UPO
-$wgEmailAuthentication = <%= node[:mediawiki][:wgEmailAuthentication] %>;
+$wgEnotifUserTalk      = <%= node['mediawiki']['wgEnotifUserTalk'] %>; # UPO
+$wgEnotifWatchlist     = <%= node['mediawiki']['wgEnotifWatchlist'] %>; # UPO
+$wgEmailAuthentication = <%= node['mediawiki']['wgEmailAuthentication'] %>;
 
 ## Database settings
-$wgDBtype           = "<%= node[:mediawiki][:wgDBtype] %>";
-$wgDBserver         = "<%= node[:mediawiki][:wgDBserver] %>";
-$wgDBname           = "<%= node[:mediawiki][:wgDBname] %>";
-$wgDBuser           = "<%= node[:mediawiki][:wgDBuser] %>";
-$wgDBpassword       = "<%= node[:mediawiki][:wgDBpassword] %>";
+$wgDBtype           = "<%= node['mediawiki']['wgDBtype'] %>";
+$wgDBserver         = "<%= node['mediawiki']['wgDBserver'] %>";
+$wgDBname           = "<%= node['mediawiki']['wgDBname'] %>";
+$wgDBuser           = "<%= node['mediawiki']['wgDBuser'] %>";
+$wgDBpassword       = "<%= node['mediawiki']['wgDBpassword'] %>";
 
 # MySQL specific settings
 $wgDBprefix         = "";
@@ -68,22 +68,22 @@ $wgDBTableOptions   = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 $wgDBmysql5 = false;
 
 ## Shared memory settings
-$wgMainCacheType    = <%= node[:mediawiki][:wgMainCacheType] %>;
-$wgMemCachedServers = <%= node[:mediawiki][:wgMemCachedServers] %>;
+$wgMainCacheType    = <%= node['mediawiki']['wgMainCacheType'] %>;
+$wgMemCachedServers = <%= node['mediawiki']['wgMemCachedServers'] %>;
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgEnableUploads  = <%= node[:mediawiki][:wgEnableUploads] %>;
-$wgUseImageMagick = <%= node[:mediawiki][:wgUseImageMagick] %>;
-$wgImageMagickConvertCommand = "<%= node[:mediawiki][:wgImageMagickConvertCommand] %>";
+$wgEnableUploads  = <%= node['mediawiki']['wgEnableUploads'] %>;
+$wgUseImageMagick = <%= node['mediawiki']['wgUseImageMagick'] %>;
+$wgImageMagickConvertCommand = "<%= node['mediawiki']['wgImageMagickConvertCommand'] %>";
 
 # InstantCommons allows wiki to use images from http://commons.wikimedia.org
-$wgUseInstantCommons  = <%= node[:mediawiki][:wgUseInstantCommons] %>;
+$wgUseInstantCommons  = <%= node['mediawiki']['wgUseInstantCommons'] %>;
 
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
 ## available UTF-8 locale
-$wgShellLocale = "<%= node[:mediawiki][:wgShellLocale] %>";
+$wgShellLocale = "<%= node['mediawiki']['wgShellLocale'] %>";
 
 ## If you want to use image uploads under safe mode,
 ## create the directories images/archive, images/thumb and
@@ -97,28 +97,28 @@ $wgShellLocale = "<%= node[:mediawiki][:wgShellLocale] %>";
 #$wgCacheDirectory = "$IP/cache";
 
 # Site language code, should be one of the list in ./languages/Names.php
-$wgLanguageCode = "<%= node[:mediawiki][:wgLanguageCode] %>";
+$wgLanguageCode = "<%= node['mediawiki']['wgLanguageCode'] %>";
 
-$wgSecretKey = "<%= node[:mediawiki][:wgSecretKey] %>";
+$wgSecretKey = "<%= node['mediawiki']['wgSecretKey'] %>";
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = "<%= node[:mediawiki][:wgUpgradeKey] %>";
+$wgUpgradeKey = "<%= node['mediawiki']['wgUpgradeKey'] %>";
 
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'cologneblue', 'monobook', 'vector':
-$wgDefaultSkin = "<%= node[:mediawiki][:wgDefaultSkin] %>";
+$wgDefaultSkin = "<%= node['mediawiki']['wgDefaultSkin'] %>";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
 ## License and Creative Commons licenses are supported so far.
-$wgRightsPage = "<%= node[:mediawiki][:wgRightsPage] %>"; # Set to the title of a wiki page that describes your license/copyright
-$wgRightsUrl  = "<%= node[:mediawiki][:wgRightsUrl] %>";
-$wgRightsText = "<%= node[:mediawiki][:wgRightsText] %>";
-$wgRightsIcon = "<%= node[:mediawiki][:wgRightsIcon] %>";
+$wgRightsPage = "<%= node['mediawiki']['wgRightsPage'] %>"; # Set to the title of a wiki page that describes your license/copyright
+$wgRightsUrl  = "<%= node['mediawiki']['wgRightsUrl'] %>";
+$wgRightsText = "<%= node['mediawiki']['wgRightsText'] %>";
+$wgRightsIcon = "<%= node['mediawiki']['wgRightsIcon'] %>";
 
 # Path to the GNU diff3 utility. Used for conflict resolution.
-$wgDiff3 = "<%= node[:mediawiki][:wgDiff3] %>";
+$wgDiff3 = "<%= node['mediawiki']['wgDiff3'] %>";
 
 # The following permissions were set based on your choice in the installer
 $wgGroupPermissions['*']['edit'] = false;
@@ -127,5 +127,5 @@ $wgGroupPermissions['*']['edit'] = false;
 # End of automatically generated settings.
 # Add more configuration options below.
 
-<%#= node[:mediawiki][:userLocalSettings] %>
+<%#= node['mediawiki']['userLocalSettings'] %>
 

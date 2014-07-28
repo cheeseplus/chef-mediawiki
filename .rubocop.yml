@@ -10,3 +10,5 @@ MethodLength:
   Max: 20
 SignalException:
   Enabled: false
+SingleSpaceBeforeFirstArg:
+  Enabled: false
