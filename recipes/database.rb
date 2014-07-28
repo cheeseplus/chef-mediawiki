@@ -6,7 +6,6 @@
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
 include_recipe "mysql::client"
-include_recipe "mysql::ruby"
 
 node.set_unless[:mediawiki][:installdbPass] = node[:mysql][:server_root_password]
 node.set_unless[:mediawiki][:wgDBpassword]  = secure_password

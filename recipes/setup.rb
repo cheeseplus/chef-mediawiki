@@ -3,8 +3,11 @@
 # Recipe:: setup
 #
 
+package 'libmysqlclient-dev'
+
 include_recipe "mysql::server"
 include_recipe "database::mysql"
+include_recipe 'git'
 
 if node.attribute?('ec2')
   include_recipe "mysql::server_ec2"
@@ -33,6 +36,9 @@ end
 
 # ---- Recommmendation by MeadiaWiki Installer page
 package "php-apc"
+
+node.set['php']['ext_conf_dir']  = '/etc/php5/mods-available'
+
 template "#{node['php']['ext_conf_dir']}/apc.ini" do
   source "apc.ini.erb"
   owner "root"
@@ -45,15 +51,20 @@ end
 userName=node[:apache][:user]
 groupName=node[:apache][:group]
 
-local_file = "#{Chef::Config[:file_cache_path]}/mediawiki-1.20.5.tar.gz"
-unless File.exists?(local_file)
-  remote_file local_file do
-    source "http://download.wikimedia.org/mediawiki/1.20/mediawiki-1.20.5.tar.gz"
-    # source "http://download.wikimedia.org/mediawiki/1.17/mediawiki-1.17.0.tar.gz"
-    owner userName
-    group groupName
-    mode 00755
-  end
+semver = node['mediawiki']['version'].split('.', 3)
+major = semver[0].to_s
+minor = semver[1].to_s
+patch = semver[2].to_s
+
+mediawiki_url = "#{node['mediawiki']['base_url']}/mediawiki-#{node['mediawiki']['version']}.tar.gz"
+local_file = "#{Chef::Config[:file_cache_path]}/mediawiki-#{node['mediawiki']['version']}.tar.gz"
+
+remote_file local_file do
+  source mediawiki_url
+  owner userName
+  group groupName
+  mode 00755
+#  not_if {File.exists?(local_file)}
 end
 
 directory node['mediawiki']['directory'] do
@@ -89,20 +100,20 @@ end
 directory node[:mediawiki][:directory]+"/config" do
   owner userName
   group groupName
-  mode "0400"
+  mode "0755"
   only_if {node[:mediawiki][:access2config_folder]=="false"}
 end
 
 directory node[:mediawiki][:directory]+"/mw-config" do
   owner userName
   group groupName
-  mode "0400"
+  mode "0755"
   only_if {node[:mediawiki][:access2config_folder]=="false"}
 end
 
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
-  server_aliases [node['ipaddress'], node['fqdn']]
+  server_aliases [node['network']['interfaces']['eth1']['addresses'].keys[1], node['ipaddress'], node['fqdn']]
   docroot node['mediawiki']['directory']
 end
 

@@ -2,6 +2,8 @@
 # Cookbook Name:: mediawiki
 # Attributes:: default
 #
+default['mediawiki']['base_url'] = "http://releases.wikimedia.org/mediawiki/"
+default['mediawiki']['version'] = "1.23.1"
 
 default[:mediawiki][:directory] = "/var/www/mediawiki"
 default[:mediawiki][:domain] = "mediawiki-berkshelf.com"

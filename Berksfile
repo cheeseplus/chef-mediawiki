@@ -1,15 +1,12 @@
-site :opscode
+source "https://supermarket.getchef.com"
 
 metadata
 
-cookbook 'omnibus_updater'
-cookbook 'ruby_quick_installer', github: 'millisami/chef-ruby_quick_installer'
-
 cookbook 'mysql'
-cookbook 'apache2'
+cookbook 'apache2', github: 'onehealth-cookbooks/apache2', branch: 'COOK-3900'
 cookbook 'php'
 cookbook 'database'
 cookbook 'minitest-handler'
 cookbook 'imagemagick'
-# cookbook 'git'
-# cookbook 'haproxy'
+cookbook 'git'
+cookbook 'haproxy'

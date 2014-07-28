@@ -1,0 +1,15 @@
+---
+driver:
+  name: vagrant
+  network:
+  - ["private_network", {ip: "192.168.33.33"}]
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mediawiki::default]
