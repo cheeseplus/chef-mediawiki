@@ -30,10 +30,11 @@ $wgScriptPath       = "<%= node['mediawiki']['wgScriptPath'] %>";
 $wgScriptExtension  = "<%= node['mediawiki']['wgScriptExtension'] %>";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://127.0.0.1";
+$wgServer = "<%= node['mediawiki']['wgServer'] %>";
 
 ## The relative URL path to the skins directory
 $wgStylePath        = "<%= node['mediawiki']['wgStylePath'] %>";
+$wgArticlePath      = "<%= node['mediawiki']['wgArticlePath'] %>";
 
 ## The relative URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!

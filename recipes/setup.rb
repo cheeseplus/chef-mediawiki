@@ -97,8 +97,12 @@ cookbook_file node['mediawiki']['directory'] + '/skins/common/images/polycount-w
   source 'polycount-wiki.png'
 end
 
+template node['mediawiki']['directory'] + '/LocalSettings.php' do
+ source 'LocalSettings.php.erb'
+end
+
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
-  server_aliases [node['network']['interfaces']['eth1']['addresses'].keys[1], node['ipaddress'], node['fqdn']]
+  server_aliases [node['ipaddress'], node['fqdn']]
   docroot node['mediawiki']['directory']
 end

@@ -4,32 +4,34 @@
 #
 # Copyright 2011, ccat
 #
+cookbook_file "#{Chef::Config['file_cache_path']}/backup.sql" do
+  source 'backup.sql'
+end
 
 script 'restore_mediawiki_by_sql' do
   interpreter 'bash'
   user 'root'
-  cwd '/tmp'
-  only_if { File.exist?(node['mediawiki']['directory'] + '/backup.sql') }
+  cwd Chef::Config['file_cache_path']
+  only_if { File.exist?(Chef::Config['file_cache_path'] + '/backup.sql') }
   code <<-EOH
-  mysql -u #{node['mediawiki']['dbuser']} -p#{node['mediawiki']['dbpass']} #{node['mediawiki']['dbname']} < #{node['mediawiki']['directory']}/backup.sql
-  rm -f  #{node['mediawiki']['directory']}/backup.sql
+  mysql -u #{node['mediawiki']['wgDBuser']} -p#{node['mediawiki']['wgDBpassword']} #{node['mediawiki']['wgDBname']} < #{Chef::Config['file_cache_path']}/backup.sql
   EOH
 end
 
-script 'restore_mediawiki_by_tar_gz' do
-  interpreter 'bash'
-  user 'root'
-  cwd node['mediawiki']['directory']
-  only_if { File.exist?(node['mediawiki']['directory'] + '/backup.tar.gz') }
-  code <<-EOH
-  cd #{node['mediawiki']['directory']}
-  tar xvzf backup.tar.gz
-  chown -R apache:apache images
-  chown -R apache:apache skins
-  chown -R apache:apache extensions
-  php maintenance/importDump.php backup.xml
-  php maintenance/rebuildrecentchanges.php
-  rm -rf backup.xml
-  rm -rf backup.tar.gz
-  EOH
-end
+# script 'restore_mediawiki_by_tar_gz' do
+#   interpreter 'bash'
+#   user 'root'
+#   cwd node['mediawiki']['directory']
+#   only_if { File.exist?(node['mediawiki']['directory'] + '/backup.tar.gz') }
+#   code <<-EOH
+#   cd #{node['mediawiki']['directory']}
+#   tar xvzf backup.tar.gz
+#   chown -R apache:apache images
+#   chown -R apache:apache skins
+#   chown -R apache:apache extensions
+#   php maintenance/importDump.php backup.xml
+#   php maintenance/rebuildrecentchanges.php
+#   rm -rf backup.xml
+#   rm -rf backup.tar.gz
+#   EOH
+# end

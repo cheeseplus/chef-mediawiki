@@ -22,8 +22,6 @@ mysql_database node['mediawiki']['wgDBname'] do
   action :create
 end
 
-node.default['mediawiki']['wgScriptPath'] = ''
-
 execute "set permission on the #{node['mediawiki']['directory']}" do
   command "chown -R #{node['apache']['user']}:#{node['apache']['group']} #{node['mediawiki']['directory']}"
   action :run

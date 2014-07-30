@@ -43,9 +43,15 @@
   DirectoryIndex <%= [@params[:directory_index]].flatten.join " " %>
   <% end -%>
 
-#  RewriteEngine On
-#  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
-#  RewriteLogLevel 0
+  # Enable the rewrite engine
+  RewriteEngine On
+
+  # Short url for wiki pages
+  RewriteRule ^/?wiki(/.*)?$ %{DOCUMENT_ROOT}/index.php [L]
+
+#  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+#  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+#  RewriteRule ^(.*)$ %{DOCUMENT_ROOT}/index.php [L]
 
   # Canonical host, <%= @params[:server_name] %>
 #  RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]

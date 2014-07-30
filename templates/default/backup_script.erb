@@ -2,10 +2,10 @@
 
 TDAY=`date +%Y%m%d`
 
-mysqldump -h <%= node['mediawiki']['dbserver'] %>  -u <%= node['mediawiki']['dbuser'] %> -p<%= node['mediawiki']['dbpass'] %> <%= node['mediawiki']['dbname'] %> -c > <%= node['mediawiki']['backup_folder'] %>/backup_$TDAY.sql
+mysqldump --default-character-set=binary --hex-blob --host=<%= node['mediawiki']['wgDBserver'] %>  --user=<%= node['mediawiki']['wgDBuser'] %> --password=<%= node['mediawiki']['wgDBpassword'] %> <%= node['mediawiki']['wgDBname'] %> -c > <%= node['mediawiki']['backup_folder'] %>/backup_$TDAY.sql
 
-cd <%= node['mediawiki']['directory'] %>
-php maintenance/dumpBackup.php --full > backup.xml
-tar zcvf <%= node['mediawiki']['backup_folder'] %>/backup_$TDAY.tar.gz LocalSettings.php images skins extensions  backup.xml
-rm -rf backup.xml
+# cd <%= node['mediawiki']['directory'] %>
+# php maintenance/dumpBackup.php --full > backup.xml
+# tar zcvf <%= node['mediawiki']['backup_folder'] %>/backup_$TDAY.tar.gz LocalSettings.php images skins extensions  backup.xml
+# rm -rf backup.xml
 
