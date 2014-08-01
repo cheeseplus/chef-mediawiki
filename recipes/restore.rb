@@ -4,8 +4,15 @@
 #
 # Copyright 2011, ccat
 #
-cookbook_file "#{Chef::Config['file_cache_path']}/backup.sql" do
-  source 'backup.sql'
+
+remote_file Chef::Config['file_cache_path'] + '/backup.sql.tar.gz' do
+  source node['mediawiki']['db_backup_url'] 
+  mode 00755
+end
+
+execute 'untar-db-backup' do
+  cwd Chef::Config['file_cache_path']
+  command "tar xzf backup.sql.tar.gz"
 end
 
 script 'restore_mediawiki_by_sql' do

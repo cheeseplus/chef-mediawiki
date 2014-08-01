@@ -93,9 +93,6 @@ directory node['mediawiki']['directory'] + '/mw-config' do
   mode '0755'
 end
 
-cookbook_file node['mediawiki']['directory'] + '/skins/common/images/polycount-wiki.png' do
-  source 'polycount-wiki.png'
-end
 
 template node['mediawiki']['directory'] + '/LocalSettings.php' do
  source 'LocalSettings.php.erb'
