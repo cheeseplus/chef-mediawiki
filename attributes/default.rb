@@ -2,15 +2,16 @@
 # Cookbook Name:: mediawiki
 # Attributes:: default
 #
-default['mediawiki']['base_url'] = 'http://releases.wikimedia.org/mediawiki/'
-default['mediawiki']['version'] = '1.23.1'
+default['mediawiki']['base_url'] = 'http://releases.wikimedia.org/mediawiki/1.23'
+default['mediawiki']['version'] = '1.23.2'
+default['mediawiki']['filename'] = "mediawiki-#{node['mediawiki']['version']}.tar.gz"
 
-default['mediawiki']['directory'] = '/var/www/mediawiki'
+default['mediawiki']['doc_root'] = '/var/www/mediawiki'
 default['mediawiki']['domain'] = 'mediawiki-berkshelf.com'
 
 default['mediawiki']['wgSitename'] = 'mediawiki'
-default['mediawiki']['wgMetaNamespace'] = 'Mediawiki' # Link to wgSitename
-default['mediawiki']['wgScriptPath'] = ''
+default['mediawiki']['wgMetaNamespace'] = 'Mediawiki'
+default['mediawiki']['wgScriptPath'] = '/w'
 default['mediawiki']['wgScriptExtension'] = '.php'
 default['mediawiki']['wgServer'] = "http://#{node['ipaddress']}"
 default['mediawiki']['wgStylePath'] = '$wgScriptPath/skins'
@@ -23,12 +24,20 @@ default['mediawiki']['wgPasswordSender'] = 'root@localhost'
 default['mediawiki']['wgEnotifUserTalk'] = 'false'
 default['mediawiki']['wgEnotifWatchlist'] = 'false'
 default['mediawiki']['wgEmailAuthentication'] = 'true'
+
+# edit permissions
+default['mediawiki']['wgGroupPermissions']['everyone'] = false;
+default['mediawiki']['wgGroupPermissions']['user'] = true;
+default['mediawiki']['wgGroupPermissions']['sysop'] = true;
+
+# database settings
 default['mediawiki']['wgDBtype'] = 'mysql'
 default['mediawiki']['wgDBserver'] = 'localhost'
 default['mediawiki']['wgDBname'] = 'mediawiki'
 default['mediawiki']['wgDBuser'] = 'mediawiki'
 default['mediawiki']['wgDBpassword'] = 'sekret'
 default['mediawiki']['wgDBprefix'] = ''
+
 default['mediawiki']['wgMainCacheType'] = 'CACHE_NONE'
 default['mediawiki']['wgMemCachedServers'] = 'array()'
 default['mediawiki']['wgEnableUploads'] = 'false'

@@ -122,11 +122,10 @@ $wgRightsIcon = "<%= node['mediawiki']['wgRightsIcon'] %>";
 $wgDiff3 = "<%= node['mediawiki']['wgDiff3'] %>";
 
 # The following permissions were set based on your choice in the installer
-$wgGroupPermissions['*']['edit'] = false;
-
+$wgGroupPermissions['*']['edit'] = <%= node['mediawiki']['wgGroupPermissions']['everyone']%>;
+$wgGroupPermissions['user']['edit'] = <%= node['mediawiki']['wgGroupPermissions']['user']%>;
+$wgGroupPermissions['sysop']['edit'] = <%= node['mediawiki']['wgGroupPermissions']['sysop']%>;
 
 # End of automatically generated settings.
 # Add more configuration options below.
-
-<%#= node['mediawiki']['userLocalSettings'] %>
 

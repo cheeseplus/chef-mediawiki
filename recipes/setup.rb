@@ -49,21 +49,14 @@ end
 userName = node['apache']['user']
 groupName = node['apache']['group']
 
-semver = node['mediawiki']['version'].split('.', 3)
-major = semver[0].to_s
-minor = semver[1].to_s
-patch = semver[2].to_s
-
-mediawiki_url = "#{node['mediawiki']['base_url']}/mediawiki-#{node['mediawiki']['version']}.tar.gz"
-local_file = "#{Chef::Config['file_cache_path']}/mediawiki-#{node['mediawiki']['version']}.tar.gz"
-
-remote_file local_file do
-  source mediawiki_url
+remote_file "#{Chef::Config['file_cache_path']}/#{node['mediawiki']['filename']}"  do
+  source "#{node['mediawiki']['base_url']}/#{node['mediawiki']['filename']}"
   owner userName
   group groupName
   mode 00755
-  #  not_if {File.exists?(local_file)}
 end
+
+node.set['mediawiki']['directory'] = "#{node['mediawiki']['doc_root']}#{node['mediawiki']['wgScriptPath']}"
 
 directory node['mediawiki']['directory'] do
   owner userName
@@ -75,7 +68,7 @@ end
 
 execute 'untar-mediawiki' do
   cwd node['mediawiki']['directory']
-  command "tar --strip-components 1 -xzf #{local_file}"
+  command "tar --strip-components 1 -xzf #{Chef::Config['file_cache_path']}/#{node['mediawiki']['filename']}"
   creates node['mediawiki']['directory'] + '/api.php'
   user userName
   group groupName
@@ -93,13 +86,13 @@ directory node['mediawiki']['directory'] + '/mw-config' do
   mode '0755'
 end
 
-
 template node['mediawiki']['directory'] + '/LocalSettings.php' do
  source 'LocalSettings.php.erb'
+ mode '0644'
 end
 
 web_app node['mediawiki']['domain'] do
   server_name node['mediawiki']['domain']
   server_aliases [node['ipaddress'], node['fqdn']]
-  docroot node['mediawiki']['directory']
+  docroot node['mediawiki']['doc_root']
 end
