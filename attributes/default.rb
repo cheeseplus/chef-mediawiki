@@ -64,6 +64,4 @@ default['mediawiki']['dbAdminPass']       = 'sekret'
 default['mediawiki']['backup_folder'] = '/var/backup/mediawiki'
 default['mediawiki']['backup_frequency'] = 'weekly'
 
-default['mediawiki']['access2config_folder'] = 'false'
-
-default['mediawiki']['userLocalSettings'] = ['']
+default['mediawiki']['require_once'] = nil

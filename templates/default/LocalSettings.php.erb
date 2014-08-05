@@ -128,4 +128,6 @@ $wgGroupPermissions['sysop']['edit'] = <%= node['mediawiki']['wgGroupPermissions
 
 # End of automatically generated settings.
 # Add more configuration options below.
-
+<% if node['mediawiki']['require_once'] -%>
+require_once "<%= node['mediawiki']['require_once'] %>";
+<% end -%>
